@@ -3,564 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Digital - Fiorella B'Pizzas</title>
-    
-    <!-- Google Fonts: Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS CDN -->
+    <title>Fiorella's Pizzeria - Menú Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
                     colors: {
-                        primary: '#DC2626',   /* Rojo Intenso (Dominante) */
-                        dark: '#121212',      /* Negro Profundo (Secundario/Acento) */
-                        accent: '#F59E0B',    /* Amarillo Cálido para badges */
+                        brand: {
+                            primary: '#E53E3E',   // Rojo Fiorella
+                            secondary: '#DD6B20', // Naranja/Acento
+                            accent: '#38A169',    // Verde WhatsApp / Aprobado
+                            dark: '#1A202C',
+                            bg: '#F7FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Ocultar barra de scroll en el filtro de categorías */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-stone-50 font-sans text-gray-800 pb-28">
+<body class="bg-brand-bg font-sans pb-24 text-gray-800">
 
-    <!-- HEADER FIJO (Color Principal: Rojo) -->
-    <header class="fixed top-0 left-0 right-0 z-30 bg-primary text-white shadow-md">
-        <div class="max-w-md mx-auto px-4 py-3 flex flex-col items-center">
-            <!-- Logo / Nombre -->
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-pizza-slice text-yellow-300 text-2xl"></i>
-                <h1 class="text-xl font-bold tracking-wide uppercase text-white">Fiorella B'Pizzas</h1>
+    <!-- HEADER FIJO -->
+    <header class="bg-brand-primary text-white sticky top-0 z-30 shadow-md">
+        <div class="max-w-md mx-auto px-4 py-3">
+            <div class="text-center mb-2">
+                <h1 class="text-2xl font-bold tracking-tight">Fiorella's Pizzeria</h1>
+                <p class="text-xs text-red-100 font-medium">Sabor artesanal a tu mesa</p>
             </div>
-            <p class="text-xs text-red-100 font-medium tracking-wide">Guacimal · San Jacinto · Turmero · Cagua</p>
-            
-            <!-- Buscador interactivo -->
-            <div class="w-full mt-3 relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    oninput="filterProducts()" 
-                    placeholder="Buscar pizza, combo, bebida..." 
-                    class="w-full pl-9 pr-4 py-1.5 rounded-full text-sm text-gray-900 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-dark"
-                >
+            <!-- BUSCADOR -->
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Buscar pizza, combo o bebida..." 
+                       class="w-full pl-9 pr-4 py-2 bg-white text-gray-800 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow-inner">
             </div>
         </div>
-        
-        <!-- FILTRO DE CATEGORÍAS (Sticky / Horizontally Scrollable) -->
-        <nav class="bg-red-700 border-t border-red-800 px-3 py-2 overflow-x-auto no-scrollbar flex space-x-2 text-xs font-semibold">
-            <button onclick="scrollToCategory('cat-pizzas')" class="px-3 py-1.5 rounded-full bg-dark text-white whitespace-nowrap shadow-sm hover:bg-black transition-all">Pizzas</button>
-            <button onclick="scrollToCategory('cat-megapizza')" class="px-3 py-1.5 rounded-full bg-dark text-white whitespace-nowrap shadow-sm hover:bg-black transition-all">Megapizza</button>
-            <button onclick="scrollToCategory('cat-calzones')" class="px-3 py-1.5 rounded-full bg-dark text-white whitespace-nowrap shadow-sm hover:bg-black transition-all">Calzones & Rolls</button>
-            <button onclick="scrollToCategory('cat-combos')" class="px-3 py-1.5 rounded-full bg-dark text-white whitespace-nowrap shadow-sm hover:bg-black transition-all">Combos</button>
-            <button onclick="scrollToCategory('cat-bebidas')" class="px-3 py-1.5 rounded-full bg-dark text-white whitespace-nowrap shadow-sm hover:bg-black transition-all">Bebidas</button>
-            <button onclick="scrollToCategory('cat-adicionales')" class="px-3 py-1.5 rounded-full bg-dark text-white whitespace-nowrap shadow-sm hover:bg-black transition-all">Adicionales</button>
-        </nav>
+
+        <!-- CATEGORÍAS (STICKY) -->
+        <div class="bg-red-700 border-t border-red-600">
+            <div class="max-w-md mx-auto px-2 py-2 flex gap-2 overflow-x-auto hide-scrollbar whitespace-nowrap" id="categoriesNav">
+                <button onclick="scrollToCategory('pizzas-tradicionales')" class="cat-btn bg-white text-brand-primary font-semibold px-4 py-1.5 rounded-full text-xs transition shadow-sm">Tradicionales</button>
+                <button onclick="scrollToCategory('pizzas-especiales')" class="cat-btn bg-red-800 text-white font-semibold px-4 py-1.5 rounded-full text-xs transition">Especiales</button>
+                <button onclick="scrollToCategory('combos')" class="cat-btn bg-red-800 text-white font-semibold px-4 py-1.5 rounded-full text-xs transition">Combos</button>
+                <button onclick="scrollToCategory('bebidas')" class="cat-btn bg-red-800 text-white font-semibold px-4 py-1.5 rounded-full text-xs transition">Bebidas</button>
+            </div>
+        </div>
     </header>
 
-    <!-- ESPACIADOR PARA HEADER FIJO -->
-    <div class="h-36"></div>
+    <!-- CONTENIDO DEL MENÚ -->
+    <main class="max-w-md mx-auto px-4 pt-4 space-y-6">
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <main class="max-w-md mx-auto px-3 space-y-6">
-
-        <!-- CATEGORÍA 1: PIZZAS -->
-        <section id="cat-pizzas" class="category-section">
-            <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2 flex items-center justify-between">
-                <span>PIZZAS TRADICIONALES Y ESPECIALES</span>
-                <span class="text-xs font-normal text-gray-500">22cm | 33cm | 40cm</span>
+        <!-- CATEGORÍA: TRADICIONALES -->
+        <section id="pizzas-tradicionales" class="category-section">
+            <h2 class="text-base font-bold text-gray-800 mb-2.5 pb-1 border-b-2 border-brand-primary flex items-center gap-2">
+                <i class="fas fa-pizza-slice text-brand-primary"></i> Pizzas Tradicionales
             </h2>
-            <div class="space-y-2" id="list-pizzas">
-                <!-- Margarita -->
-                <script>document.write(renderPizzaItem("Margarita", "Salsa napole, queso mozzarella y jamón.", [{size:"22 cm", price:3}, {size:"33 cm", price:5}, {size:"40 cm", price:7}]));</script>
-                <!-- Charcutera -->
-                <script>document.write(renderPizzaItem("Charcutera", "Salsa napole, queso, jamón, pepperoni, tocineta, chorizo y salchichón.", [{size:"22 cm", price:5}, {size:"33 cm", price:8}, {size:"40 cm", price:10}]));</script>
-                <!-- Caprese -->
-                <script>document.write(renderPizzaItem("Caprese", "Salsa napole, queso, jamón, tomate y albahaca.", [{size:"40 cm", price:10}]));</script>
-                <!-- La Fiore -->
-                <script>document.write(renderPizzaItem("La Fiore", "Salsa napole, queso, borde de queso, tocineta, salchichón, pepperoni, salchicha polaca y salsa tártara.", [{size:"33 cm", price:10}]));</script>
-                <!-- La Ahumadita -->
-                <script>document.write(renderPizzaItem("La Ahumadita", "Salsa napole, queso mozzarella, queso parmesano, tomate cherry deshidratado, jamón ahumado, chistorra y chimichurri ahumado con tocineta crispy.", [{size:"33 cm", price:10}]));</script>
-                <!-- 4 Quesos -->
-                <script>document.write(renderPizzaItem("4 Quesos", "Jamón, queso mozzarella, queso azul, queso pecorino, queso manchego.", [{size:"40 cm", price:12}]));</script>
-                <!-- Vegetariana -->
-                <script>document.write(renderPizzaItem("Vegetariana", "Salsa napole, queso, maíz, champiñones, cebolla, pimentón y aceitunas negras.", [{size:"22 cm", price:5}, {size:"33 cm", price:8}, {size:"40 cm", price:10}]));</script>
-                <!-- Hawaiana -->
-                <script>document.write(renderPizzaItem("Hawaiana", "Salsa napole, queso mozzarella, jamón y piña.", [{size:"40 cm", price:10}]));</script>
-                <!-- Chocopizza -->
-                <script>document.write(renderPizzaItem("Chocopizza", "Nutella o arequipe, masmelo, caramelo Dandy y lluvia de colores.", [{size:"33 cm", price:8}]));</script>
-                <!-- Pasticho -->
-                <script>document.write(renderPizzaItem("Pasticho", "Salsa napole, queso mozzarella, jamón, tocineta, carne molida.", [{size:"18x14 cm", price:7}]));</script>
-            </div>
-        </section>
-
-        <!-- CATEGORÍA 2: MEGAPIZZA -->
-        <section id="cat-megapizza" class="category-section">
-            <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2">ESPECIAL MEGAPIZZA</h2>
-            <div class="space-y-2">
-                <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100 flex items-center justify-between">
-                    <div class="pr-2">
-                        <div class="flex items-center space-x-1.5">
-                            <span class="font-bold text-gray-900 text-sm">Megapizza Gigante</span>
-                            <span class="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded font-bold">80 CM</span>
+            <div class="space-y-2.5">
+                <!-- Producto 1 -->
+                <div class="product-card bg-white p-3 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center gap-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-sm text-gray-900 product-name">Margarita</h3>
+                            <span class="font-bold text-sm text-brand-primary ml-2">$8.00</span>
                         </div>
-                        <p class="text-xs text-gray-600 font-medium mt-0.5">La gigante para compartir en familia o grupos.</p>
+                        <p class="text-xs font-medium text-gray-500 mt-0.5">Salsa de tomate, queso mozzarella, albahaca fresca y aceite de oliva.</p>
                     </div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <span class="font-bold text-primary text-base">$25</span>
-                        <div class="flex items-center bg-gray-100 rounded-lg p-1 space-x-1">
-                            <button onclick="updateCart('Megapizza Gigante (80 cm)', 25, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold shadow-xs active:bg-gray-200 text-xs">-</button>
-                            <span id="qty-Megapizza-Gigante-(80-cm)" class="w-4 text-center font-bold text-xs">0</span>
-                            <button onclick="updateCart('Megapizza Gigante (80 cm)', 25, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold shadow-xs active:bg-red-700 text-xs">+</button>
+                    <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                        <button onclick="updateQty('p1', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm hover:bg-gray-100 flex items-center justify-center">-</button>
+                        <span id="qty-p1" class="font-semibold text-xs w-4 text-center">0</span>
+                        <button onclick="updateQty('p1', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm hover:bg-red-700 flex items-center justify-center">+</button>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="product-card bg-white p-3 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center gap-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-sm text-gray-900 product-name">Pepperoni</h3>
+                            <span class="font-bold text-sm text-brand-primary ml-2">$10.00</span>
                         </div>
+                        <p class="text-xs font-medium text-gray-500 mt-0.5">Salsa de la casa, abundante queso mozzarella y rodajas de pepperoni crujiente.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                        <button onclick="updateQty('p2', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm hover:bg-gray-100 flex items-center justify-center">-</button>
+                        <span id="qty-p2" class="font-semibold text-xs w-4 text-center">0</span>
+                        <button onclick="updateQty('p2', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm hover:bg-red-700 flex items-center justify-center">+</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CATEGORÍA 3: CALZONES & ROLLS -->
-        <section id="cat-calzones" class="category-section">
-            <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2">CALZONES & ROLLS</h2>
-            <div class="space-y-2">
-                <!-- Calzone Jamón -->
-                <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100 flex items-center justify-between">
-                    <div class="pr-2">
-                        <span class="font-bold text-gray-900 text-sm">Calzone Tradicional</span>
-                        <p class="text-xs text-gray-600 font-medium mt-0.5">Salsa napole, queso mozzarella y jamón. (33 cm)</p>
-                    </div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <span class="font-bold text-primary text-base">$8</span>
-                        <div class="flex items-center bg-gray-100 rounded-lg p-1 space-x-1">
-                            <button onclick="updateCart('Calzone Tradicional', 8, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                            <span id="qty-Calzone-Tradicional" class="w-4 text-center font-bold text-xs">0</span>
-                            <button onclick="updateCart('Calzone Tradicional', 8, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Calzone Vegetales/Especial -->
-                <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100 flex items-center justify-between">
-                    <div class="pr-2">
-                        <span class="font-bold text-gray-900 text-sm">Calzone Especial</span>
-                        <p class="text-xs text-gray-600 font-medium mt-0.5">Salsa napole, queso mozzarella, jamón, pimentón, cebolla y atún. (33 cm)</p>
-                    </div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <span class="font-bold text-primary text-base">$8</span>
-                        <div class="flex items-center bg-gray-100 rounded-lg p-1 space-x-1">
-                            <button onclick="updateCart('Calzone Especial', 8, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                            <span id="qty-Calzone-Especial" class="w-4 text-center font-bold text-xs">0</span>
-                            <button onclick="updateCart('Calzone Especial', 8, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Roll Tasty -->
-                <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100 flex items-center justify-between">
-                    <div class="pr-2">
-                        <span class="font-bold text-gray-900 text-sm">Roll Tasty</span>
-                        <p class="text-xs text-gray-600 font-medium mt-0.5">Queso, jamón, tocineta, tomate y albahaca. (4x6 pzs)</p>
-                    </div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <span class="font-bold text-primary text-base">$8</span>
-                        <div class="flex items-center bg-gray-100 rounded-lg p-1 space-x-1">
-                            <button onclick="updateCart('Roll Tasty (4x6)', 8, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                            <span id="qty-Roll-Tasty-(4x6)" class="w-4 text-center font-bold text-xs">0</span>
-                            <button onclick="updateCart('Roll Tasty (4x6)', 8, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CATEGORÍA 4: COMBOS -->
-        <section id="cat-combos" class="category-section">
-            <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2">NUESTROS COMBOS</h2>
-            <div class="space-y-2">
-                <script>
-                    const combos = [
-                        {id: 1, desc: "1 Margarita + 1 Coca-Cola 1.5 L + 1 Ingrediente adicional (40 cm)", price: 9},
-                        {id: 2, desc: "2 Margaritas + 1 Coca-Cola 1.5 L + 1 Ingrediente adicional por pizza (40 cm)", price: 16},
-                        {id: 3, desc: "3 Margaritas + 1 Coca-Cola 1.5 L (40 cm)", price: 20},
-                        {id: 4, desc: "4 Margaritas + 1 Coca-Cola 1.5 L (40 cm)", price: 26},
-                        {id: 5, desc: "2 Margaritas + 1 Charcutera + 1 Coca-Cola 1.5 L (40 cm)", price: 24},
-                        {id: 6, desc: "1 Vegetariana + 1 Caprese + 1 Charcutera + 1 Coca-Cola 1.5 L (40 cm)", price: 28},
-                        {id: 7, desc: "3 Charcuteras + 1 Coca-Cola 1.5 L (40 cm)", price: 28},
-                        {id: 8, desc: "2 Margaritas (40 cm)", price: 13},
-                        {id: 9, desc: "2 Margaritas con tocineta, salchichón y maíz + 1 Coca-Cola 1.5 L (33 cm)", price: 15},
-                        {id: 10, desc: "2 Charcuteras + Coca Cola 1.5 L (40 cm)", price: 22}
-                    ];
-
-                    combos.forEach(c => {
-                        document.write(`
-                            <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100 flex items-center justify-between">
-                                <div class="pr-2">
-                                    <div class="flex items-center space-x-1.5">
-                                        <span class="bg-dark text-white text-[10px] font-bold px-1.5 py-0.5 rounded">COMBO ${c.id}</span>
-                                        <span class="font-bold text-gray-900 text-xs">${c.desc}</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-2 shrink-0">
-                                    <span class="font-bold text-primary text-base">$${c.price}</span>
-                                    <div class="flex items-center bg-gray-100 rounded-lg p-1 space-x-1">
-                                        <button onclick="updateCart('Combo ${c.id}', ${c.price}, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                                        <span id="qty-Combo-${c.id}" class="w-4 text-center font-bold text-xs">0</span>
-                                        <button onclick="updateCart('Combo ${c.id}', ${c.price}, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                                    </div>
-                                </div>
+        <!-- CATEGORÍA: ESPECIALES (CON IMAGEN CONTROLADA) -->
+        <section id="pizzas-especiales" class="category-section">
+            <h2 class="text-base font-bold text-gray-800 mb-2.5 pb-1 border-b-2 border-brand-primary flex items-center gap-2">
+                <i class="fas fa-star text-brand-primary"></i> Especiales Fiorella
+            </h2>
+            <div class="space-y-3">
+                <!-- Producto Especial 1 -->
+                <div class="product-card bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Pizza Cuatro Quesos" class="w-full h-36 object-cover">
+                    <div class="p-3 flex justify-between items-center gap-3">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-sm text-gray-900 product-name">Cuatro Quesos Premium</h3>
+                                <span class="font-bold text-sm text-brand-primary ml-2">$13.00</span>
                             </div>
-                        `);
-                    });
-                </script>
-            </div>
-        </section>
-
-        <!-- CATEGORÍA 5: BEBIDAS -->
-        <section id="cat-bebidas" class="category-section">
-            <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2">BEBIDAS Y REFRESCOS</h2>
-            <div class="space-y-2">
-                <script>
-                    const bebidas = [
-                        {name: "Refresco 1.5 L", price: 2.5},
-                        {name: "Lipton", price: 2},
-                        {name: "Yukery", price: 1},
-                        {name: "Gatorade", price: 2},
-                        {name: "Agua Mineral", price: 1},
-                        {name: "Bombita", price: 1}
-                    ];
-
-                    bebidas.forEach(b => {
-                        const cleanId = b.name.replace(/[^a-zA-Z0-0]/g, '-');
-                        document.write(`
-                            <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100 flex items-center justify-between">
-                                <span class="font-bold text-gray-900 text-sm">${b.name}</span>
-                                <div class="flex items-center space-x-2 shrink-0">
-                                    <span class="font-bold text-primary text-base">$${b.price}</span>
-                                    <div class="flex items-center bg-gray-100 rounded-lg p-1 space-x-1">
-                                        <button onclick="updateCart('${b.name}', ${b.price}, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                                        <span id="qty-${cleanId}" class="w-4 text-center font-bold text-xs">0</span>
-                                        <button onclick="updateCart('${b.name}', ${b.price}, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
-                </script>
-            </div>
-        </section>
-
-        <!-- CATEGORÍA 6: INGREDIENTES ADICIONALES -->
-        <section id="cat-adicionales" class="category-section">
-            <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2">INGREDIENTES ADICIONALES</h2>
-            <div class="space-y-2">
-                <!-- Adicionales $1 -->
-                <div class="bg-white rounded-lg p-3 shadow-sm border border-gray-100">
-                    <span class="font-bold text-xs text-gray-500 uppercase tracking-wider block mb-2">Adicionales de $1,00</span>
-                    <div class="grid grid-cols-2 gap-2">
-                        <script>
-                            const adic1 = ["Tomate", "Maíz", "Tocineta", "Pepperoni", "Jamón", "Salchichón", "Polaca", "Cebolla", "Chistorra", "Chorizo", "Aceitunas negras"];
-                            adic1.forEach(item => {
-                                const cleanId = ("Extra " + item).replace(/[^a-zA-Z0-0]/g, '-');
-                                document.write(`
-                                    <div class="product-item flex items-center justify-between bg-gray-50 p-1.5 rounded">
-                                        <span class="text-xs font-semibold text-gray-800">${item}</span>
-                                        <div class="flex items-center space-x-1">
-                                            <button onclick="updateCart('Extra ${item}', 1, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold shadow-xs">-</button>
-                                            <span id="qty-${cleanId}" class="w-3 text-center text-xs font-bold">0</span>
-                                            <button onclick="updateCart('Extra ${item}', 1, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                                        </div>
-                                    </div>
-                                `);
-                            });
-                        </script>
-                    </div>
-                </div>
-
-                <!-- Adicionales $2 y $2,5 -->
-                <div class="grid grid-cols-1 gap-2">
-                    <div class="bg-white rounded-lg p-3 shadow-sm border border-gray-100">
-                        <span class="font-bold text-xs text-gray-500 uppercase tracking-wider block mb-2">Adicional $2,00</span>
-                        <div class="product-item flex items-center justify-between bg-gray-50 p-1.5 rounded">
-                            <span class="text-xs font-semibold text-gray-800">Piña</span>
-                            <div class="flex items-center space-x-1">
-                                <button onclick="updateCart('Extra Piña', 2, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold">-</button>
-                                <span id="qty-Extra-Pi-a" class="w-3 text-center text-xs font-bold">0</span>
-                                <button onclick="updateCart('Extra Piña', 2, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                            </div>
+                            <p class="text-xs font-medium text-gray-500 mt-0.5">Mezcla artesanal de Mozzarella, Parmesano, Gorgonzola y Provolone.</p>
                         </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg p-3 shadow-sm border border-gray-100">
-                        <span class="font-bold text-xs text-gray-500 uppercase tracking-wider block mb-2">Adicionales de $2,50</span>
-                        <div class="grid grid-cols-2 gap-2">
-                            <script>
-                                const adic25 = ["Anchoas", "Champiñón", "Doble queso", "Borde de queso"];
-                                adic25.forEach(item => {
-                                    const cleanId = ("Extra " + item).replace(/[^a-zA-Z0-0]/g, '-');
-                                    document.write(`
-                                        <div class="product-item flex items-center justify-between bg-gray-50 p-1.5 rounded">
-                                            <span class="text-xs font-semibold text-gray-800">${item}</span>
-                                            <div class="flex items-center space-x-1">
-                                                <button onclick="updateCart('Extra ${item}', 2.5, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold">-</button>
-                                                <span id="qty-${cleanId}" class="w-3 text-center text-xs font-bold">0</span>
-                                                <button onclick="updateCart('Extra ${item}', 2.5, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                                            </div>
-                                        </div>
-                                    `);
-                                });
-                            </script>
+                        <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                            <button onclick="updateQty('p3', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm flex items-center justify-center">-</button>
+                            <span id="qty-p3" class="font-semibold text-xs w-4 text-center">0</span>
+                            <button onclick="updateQty('p3', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm flex items-center justify-center">+</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Producto Especial 2 -->
+                <div class="product-card bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" alt="Pizza Hawaiana Especial" class="w-full h-36 object-cover">
+                    <div class="p-3 flex justify-between items-center gap-3">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-sm text-gray-900 product-name">Fiorella Suprema</h3>
+                                <span class="font-bold text-sm text-brand-primary ml-2">$14.50</span>
+                            </div>
+                            <p class="text-xs font-medium text-gray-500 mt-0.5">Jamón, pepperoni, pimentón, champiñones, aceitunas negras y doble queso.</p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                            <button onclick="updateQty('p4', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm flex items-center justify-center">-</button>
+                            <span id="qty-p4" class="font-semibold text-xs w-4 text-center">0</span>
+                            <button onclick="updateQty('p4', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍA: COMBOS (TARJETAS LIMPIAS SIN CUADROS NEGROS) -->
+        <section id="combos" class="category-section">
+            <h2 class="text-base font-bold text-gray-800 mb-2.5 pb-1 border-b-2 border-brand-primary flex items-center gap-2">
+                <i class="fas fa-fire text-brand-primary"></i> Combos Familiares
+            </h2>
+            <div class="space-y-2.5">
+                <!-- Combo 1 -->
+                <div class="product-card bg-white p-3 rounded-xl border border-red-200 shadow-sm flex justify-between items-center gap-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-sm text-gray-900 product-name">Combo Pareja</h3>
+                            <span class="font-bold text-sm text-brand-primary ml-2">$16.00</span>
+                        </div>
+                        <p class="text-xs font-medium text-gray-500 mt-0.5">1 Pizza Tradicional Grande + 1 Refresco 1.5L + Pan de Ajo.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                        <button onclick="updateQty('p5', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm flex items-center justify-center">-</button>
+                        <span id="qty-p5" class="font-semibold text-xs w-4 text-center">0</span>
+                        <button onclick="updateQty('p5', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm flex items-center justify-center">+</button>
+                    </div>
+                </div>
+
+                <!-- Combo 2 -->
+                <div class="product-card bg-white p-3 rounded-xl border border-red-200 shadow-sm flex justify-between items-center gap-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-sm text-gray-900 product-name">Combo Fiesta Fiorella</h3>
+                            <span class="font-bold text-sm text-brand-primary ml-2">$28.00</span>
+                        </div>
+                        <p class="text-xs font-medium text-gray-500 mt-0.5">2 Pizzas Especiales Grandes + 2 Refrescos 1.5L + Ración de Tequeños.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                        <button onclick="updateQty('p6', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm flex items-center justify-center">-</button>
+                        <span id="qty-p6" class="font-semibold text-xs w-4 text-center">0</span>
+                        <button onclick="updateQty('p6', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm flex items-center justify-center">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍA: BEBIDAS -->
+        <section id="bebidas" class="category-section">
+            <h2 class="text-base font-bold text-gray-800 mb-2.5 pb-1 border-b-2 border-brand-primary flex items-center gap-2">
+                <i class="fas fa-glass-whiskey text-brand-primary"></i> Bebidas
+            </h2>
+            <div class="space-y-2.5">
+                <div class="product-card bg-white p-3 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center gap-3">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-sm text-gray-900 product-name">Refresco 1.5L</h3>
+                            <span class="font-bold text-sm text-brand-primary ml-2">$2.50</span>
+                        </div>
+                        <p class="text-xs font-medium text-gray-500 mt-0.5">Coca-Cola, Sabor original bien fría.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-1 rounded-lg border border-gray-200">
+                        <button onclick="updateQty('p7', -1)" class="w-7 h-7 bg-white rounded-md font-bold text-gray-600 shadow-sm flex items-center justify-center">-</button>
+                        <span id="qty-p7" class="font-semibold text-xs w-4 text-center">0</span>
+                        <button onclick="updateQty('p7', 1)" class="w-7 h-7 bg-brand-primary text-white rounded-md font-bold shadow-sm flex items-center justify-center">+</button>
+                    </div>
+                </div>
             </div>
         </section>
 
     </main>
 
     <!-- BARRA INFERIOR FLOTANTE -->
-    <div class="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-gray-200 shadow-lg px-4 py-3">
-        <div class="max-w-md mx-auto flex items-center justify-between">
+    <div id="bottomBar" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg p-3 z-30 hidden">
+        <div class="max-w-md mx-auto flex items-center justify-between gap-3">
             <div>
-                <p class="text-xs text-gray-500 font-medium">Total Acumulado</p>
-                <p class="text-xl font-bold text-dark" id="bar-total">$0.00</p>
+                <span class="text-xs text-gray-500 font-medium block">Total Pedido:</span>
+                <span id="totalPrice" class="text-lg font-bold text-brand-primary">$0.00</span>
             </div>
-            <button 
-                onclick="openModal()" 
-                class="bg-primary hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-full shadow-md flex items-center space-x-2 active:scale-95 transition-all"
-            >
-                <i class="fa-solid fa-cart-shopping text-sm"></i>
-                <span>Ver pedido</span>
-                <span id="bar-count" class="bg-dark text-white text-xs px-2 py-0.5 rounded-full ml-1">0</span>
+            <button onclick="toggleModal(true)" class="bg-brand-primary hover:bg-red-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-md flex items-center gap-2 text-sm">
+                <i class="fas fa-shopping-basket"></i> Ver pedido
             </button>
         </div>
     </div>
 
     <!-- MODAL DE REVISIÓN DE PEDIDO -->
-    <div id="orderModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-white w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-            
-            <!-- Header Modal -->
-            <div class="bg-dark text-white p-4 flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-list-check text-yellow-400"></i>
-                    <h3 class="font-bold text-base">Revisión de tu Pedido</h3>
+    <div id="orderModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-white w-full max-w-md rounded-t-2xl sm:rounded-2xl p-4 max-h-[85vh] flex flex-col justify-between shadow-2xl">
+            <div>
+                <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+                    <h3 class="font-bold text-lg text-gray-900 flex items-center gap-2">
+                        <i class="fas fa-clipboard-list text-brand-primary"></i> Resumen de tu Pedido
+                    </h3>
+                    <button onclick="toggleModal(false)" class="text-gray-400 hover:text-gray-600 p-1">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
                 </div>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white p-1 text-lg">
-                    <i class="fa-solid fa-xmark"></i>
+                <!-- LISTA DE ÍTEMS EN EL CARRITO -->
+                <div id="cartItemsList" class="py-3 space-y-2 overflow-y-auto max-h-[45vh] divide-y divide-gray-100">
+                    <!-- Se llena dinámicamente con JS -->
+                </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-3 space-y-3">
+                <div class="flex justify-between items-center text-base font-bold">
+                    <span class="text-gray-800">Total a Pagar:</span>
+                    <span id="modalTotal" class="text-brand-primary text-xl">$0.00</span>
+                </div>
+                <button onclick="sendToWhatsApp()" class="w-full bg-brand-accent hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm">
+                    <i class="fab fa-whatsapp text-lg"></i> Enviar a WhatsApp
                 </button>
             </div>
-
-            <!-- Lista de items en el carrito -->
-            <div id="modal-cart-items" class="p-4 overflow-y-auto divide-y divide-gray-100 flex-1">
-                <!-- Se llena dinámicamente -->
-            </div>
-
-            <!-- Footer Modal con total y botón WhatsApp -->
-            <div class="p-4 bg-gray-50 border-t border-gray-200 space-y-3">
-                <div class="flex justify-between items-center text-sm font-bold">
-                    <span class="text-gray-700">Total a Pagar:</span>
-                    <span class="text-xl text-primary font-extrabold" id="modal-total">$0.00</span>
-                </div>
-                
-                <button 
-                    onclick="sendWhatsApp()" 
-                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center space-x-2 shadow-md active:scale-98 transition-all"
-                >
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Enviar Pedido a WhatsApp</span>
-                </button>
-            </div>
-
         </div>
     </div>
 
-    <!-- SCRIPT JS DE LÓGICA DE NEGOCIO -->
+    <!-- JAVASCRIPT LÓGICO -->
     <script>
-        // Carrito de compras
+        const products = {
+            'p1': { name: 'Pizza Margarita', price: 8.00 },
+            'p2': { name: 'Pizza Pepperoni', price: 10.00 },
+            'p3': { name: 'Cuatro Quesos Premium', price: 13.00 },
+            'p4': { name: 'Fiorella Suprema', price: 14.50 },
+            'p5': { name: 'Combo Pareja', price: 16.00 },
+            'p6': { name: 'Combo Fiesta Fiorella', price: 28.00 },
+            'p7': { name: 'Refresco 1.5L', price: 2.50 }
+        };
+
         let cart = {};
 
-        // Función para renderizar tarjeta de Pizza con selectores por tamaño
-        function renderPizzaItem(title, ingredients, sizes) {
-            let optionsHTML = sizes.map(s => {
-                const itemKey = `${title} (${s.size})`;
-                const cleanId = itemKey.replace(/[^a-zA-Z0-0]/g, '-');
-                return `
-                    <div class="flex items-center justify-between bg-gray-50 p-1.5 rounded mt-1">
-                        <span class="text-xs font-semibold text-gray-700">${s.size} - <strong class="text-primary">$${s.price}</strong></span>
-                        <div class="flex items-center space-x-1">
-                            <button onclick="updateCart('${itemKey}', ${s.price}, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold shadow-xs">-</button>
-                            <span id="qty-${cleanId}" class="w-3 text-center text-xs font-bold">0</span>
-                            <button onclick="updateCart('${itemKey}', ${s.price}, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            return `
-                <div class="product-item bg-white rounded-lg p-2.5 shadow-sm border border-gray-100">
-                    <div class="mb-1">
-                        <span class="font-bold text-gray-900 text-sm">${title}</span>
-                        <p class="text-xs text-gray-600 font-medium leading-tight mt-0.5">${ingredients}</p>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-1">
-                        ${optionsHTML}
-                    </div>
-                </div>
-            `;
+        function updateQty(id, change) {
+            const current = cart[id] || 0;
+            const next = current + change;
+            if (next >= 0) {
+                cart[id] = next;
+                document.getElementById(`qty-${id}`).innerText = next;
+                renderCart();
+            }
         }
 
-        // Actualizar cantidades en Carrito
-        function updateCart(name, price, change) {
-            if (!cart[name]) {
-                cart[name] = { price: price, qty: 0 };
-            }
-
-            cart[name].qty += change;
-
-            if (cart[name].qty <= 0) {
-                delete cart[name];
-            }
-
-            // Actualizar interfaz contador individual
-            const cleanId = name.replace(/[^a-zA-Z0-0]/g, '-');
-            const qtyElem = document.getElementById(`qty-${cleanId}`);
-            if (qtyElem) {
-                qtyElem.innerText = cart[name] ? cart[name].qty : 0;
-            }
-
-            renderTotals();
-        }
-
-        // Renderizar Totales de la barra inferior
-        function renderTotals() {
+        function renderCart() {
             let total = 0;
             let count = 0;
+            const listContainer = document.getElementById('cartItemsList');
+            listContainer.innerHTML = '';
 
-            for (let key in cart) {
-                total += cart[key].price * cart[key].qty;
-                count += cart[key].qty;
-            }
+            for (const [id, qty] of Object.entries(cart)) {
+                if (qty > 0) {
+                    const itemTotal = products[id].price * qty;
+                    total += itemTotal;
+                    count += qty;
 
-            document.getElementById('bar-total').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('bar-count').innerText = count;
-            document.getElementById('modal-total').innerText = `$${total.toFixed(2)}`;
-        }
-
-        // Desplazamiento a Categorías
-        function scrollToCategory(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                const headerOffset = 150;
-                const elementPosition = el.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-            }
-        }
-
-        // Filtrado por Búsqueda
-        function filterProducts() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const items = document.querySelectorAll('.product-item');
-
-            items.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                if (text.includes(query)) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
-            });
-        }
-
-        // Abrir y Cerrar Modal
-        function openModal() {
-            const modal = document.getElementById('orderModal');
-            const container = document.getElementById('modal-cart-items');
-            
-            if (Object.keys(cart).length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-gray-400">
-                        <i class="fa-solid fa-basket-shopping text-4xl mb-2"></i>
-                        <p class="text-sm font-medium">Tu pedido está vacío</p>
-                    </div>
-                `;
-            } else {
-                let html = '';
-                for (let name in cart) {
-                    const item = cart[name];
-                    const subtotal = (item.price * item.qty).toFixed(2);
-                    html += `
-                        <div class="py-2.5 flex items-center justify-between">
-                            <div class="pr-2">
-                                <p class="text-xs font-bold text-gray-800">${name}</p>
-                                <p class="text-[11px] text-gray-500">$${item.price.toFixed(2)} c/u</p>
+                    listContainer.innerHTML += `
+                        <div class="flex justify-between items-center pt-2 text-sm">
+                            <div>
+                                <p class="font-bold text-gray-800">${products[id].name}</p>
+                                <p class="text-xs text-gray-500">${qty} x $${products[id].price.toFixed(2)}</p>
                             </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="text-xs font-bold text-primary">$${subtotal}</span>
-                                <div class="flex items-center bg-gray-100 rounded p-0.5 space-x-1">
-                                    <button onclick="updateCart('${name}', ${item.price}, -1); openModal();" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold shadow-xs">-</button>
-                                    <span class="w-4 text-center text-xs font-bold">${item.qty}</span>
-                                    <button onclick="updateCart('${name}', ${item.price}, 1); openModal();" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                                </div>
-                            </div>
+                            <span class="font-bold text-brand-primary">$${itemTotal.toFixed(2)}</span>
                         </div>
                     `;
                 }
-                container.innerHTML = html;
             }
 
-            modal.classList.remove('hidden');
-        }
+            document.getElementById('totalPrice').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('modalTotal').innerText = `$${total.toFixed(2)}`;
 
-        function closeModal() {
-            document.getElementById('orderModal').classList.add('hidden');
-        }
-
-        // Enviar pedido mediante WhatsApp
-        function sendWhatsApp() {
-            if (Object.keys(cart).length === 0) {
-                alert("Por favor selecciona al menos un producto para enviar tu pedido.");
-                return;
+            const bottomBar = document.getElementById('bottomBar');
+            if (count > 0) {
+                bottomBar.classList.remove('hidden');
+            } else {
+                bottomBar.classList.add('hidden');
+                toggleModal(false);
             }
+        }
 
-            let text = "🍕 *NUEVO PEDIDO - FIORELLA B'PIZZAS* 🍕\n\n";
+        function toggleModal(show) {
+            const modal = document.getElementById('orderModal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function sendToWhatsApp() {
+            let text = "¡Hola Fiorella's Pizzeria! 🍕 Quisiera realizar el siguiente pedido:\n\n";
             let total = 0;
 
-            for (let name in cart) {
-                const subtotal = cart[name].price * cart[name].qty;
-                total += subtotal;
-                text += `• ${cart[name].qty}x ${name} -> $${subtotal.toFixed(2)}\n`;
+            for (const [id, qty] of Object.entries(cart)) {
+                if (qty > 0) {
+                    const sub = products[id].price * qty;
+                    total += sub;
+                    text += `• ${qty}x ${products[id].name} ($${sub.toFixed(2)})\n`;
+                }
             }
 
-            text += `\n💵 *TOTAL: $${total.toFixed(2)}*\n\n`;
-            text += "¡Hola! Quisiera realizar este pedido. ¿Me indican el tiempo de entrega y datos de pago?";
+            text += `\n*Total a Pagar: $${total.toFixed(2)}*`;
+            const phone = "584120000000"; // Reemplazar por el número real
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
 
-            const encodedText = encodeURIComponent(text);
-            window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+        function scrollToCategory(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const offset = 120;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = el.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+            }
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const name = card.querySelector('.product-name').innerText.toLowerCase();
+                if (name.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
