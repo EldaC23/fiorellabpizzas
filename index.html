@@ -23,8 +23,8 @@
                         sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#DC2626',   /* Rojo Intenso (Dominante) */
-                        dark: '#121212',      /* Negro Profundo (Secundario/Acento) */
+                        primary: '#DC2626',   /* Rojo Intenso */
+                        dark: '#121212',      /* Negro Profundo */
                         accent: '#F59E0B',
                     }
                 }
@@ -88,7 +88,6 @@
         <section id="cat-pizzas" class="category-section">
             <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2 flex items-center justify-between">
                 <span>PIZZAS TRADICIONALES Y ESPECIALES</span>
-                <span class="text-xs font-normal text-gray-500">Variedad de Tamaños</span>
             </h2>
             <div class="space-y-2.5" id="list-pizzas"></div>
         </section>
@@ -105,11 +104,9 @@
                         </div>
                         <p class="text-xs text-gray-600 font-normal leading-snug">La pizza gigante ideal para compartir en grupos grandes o eventos.</p>
                     </div>
-                    <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-2">
-                        <button onclick="updateCart('Megapizza Gigante (80 cm)', 25, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold shadow-xs active:bg-gray-200 text-xs">-</button>
-                        <span id="qty-Megapizza-Gigante-(80-cm)" class="w-4 text-center font-bold text-xs">0</span>
-                        <button onclick="updateCart('Megapizza Gigante (80 cm)', 25, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold shadow-xs active:bg-red-700 text-xs">+</button>
-                    </div>
+                    <button onclick="updateCart('Megapizza Gigante (80 cm)', 25, 1)" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-xs active:scale-95 text-sm shrink-0 ml-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                 </div>
             </div>
         </section>
@@ -126,11 +123,9 @@
                         </div>
                         <p class="text-xs text-gray-600 font-normal leading-snug">Salsa napole, queso mozzarella y jamón. (33 cm)</p>
                     </div>
-                    <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-2">
-                        <button onclick="updateCart('Calzone Tradicional', 8, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                        <span id="qty-Calzone-Tradicional" class="w-4 text-center font-bold text-xs">0</span>
-                        <button onclick="updateCart('Calzone Tradicional', 8, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                    </div>
+                    <button onclick="updateCart('Calzone Tradicional', 8, 1)" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-xs active:scale-95 text-sm shrink-0 ml-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                 </div>
 
                 <div class="product-item bg-white rounded-lg p-3 shadow-sm border border-gray-200 flex items-center justify-between">
@@ -141,11 +136,9 @@
                         </div>
                         <p class="text-xs text-gray-600 font-normal leading-snug">Salsa napole, queso mozzarella, jamón, pimentón, cebolla y atún. (33 cm)</p>
                     </div>
-                    <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-2">
-                        <button onclick="updateCart('Calzone Especial', 8, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                        <span id="qty-Calzone-Especial" class="w-4 text-center font-bold text-xs">0</span>
-                        <button onclick="updateCart('Calzone Especial', 8, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                    </div>
+                    <button onclick="updateCart('Calzone Especial', 8, 1)" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-xs active:scale-95 text-sm shrink-0 ml-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                 </div>
 
                 <div class="product-item bg-white rounded-lg p-3 shadow-sm border border-gray-200 flex items-center justify-between">
@@ -156,16 +149,14 @@
                         </div>
                         <p class="text-xs text-gray-600 font-normal leading-snug">Queso, jamón, tocineta, tomate y albahaca. (4x6 pzs)</p>
                     </div>
-                    <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-2">
-                        <button onclick="updateCart('Roll Tasty (4x6)', 8, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                        <span id="qty-Roll-Tasty-(4x6)" class="w-4 text-center font-bold text-xs">0</span>
-                        <button onclick="updateCart('Roll Tasty (4x6)', 8, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                    </div>
+                    <button onclick="updateCart('Roll Tasty (4x6)', 8, 1)" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-xs active:scale-95 text-sm shrink-0 ml-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- CATEGORÍA 4: COMBOS (Sin cuadro negro, tarjeta limpia) -->
+        <!-- CATEGORÍA 4: COMBOS -->
         <section id="cat-combos" class="category-section">
             <h2 class="text-base font-bold text-dark border-l-4 border-primary pl-2 mb-2">NUESTROS COMBOS</h2>
             <div class="space-y-2" id="list-combos"></div>
@@ -190,11 +181,9 @@
                     <span class="font-bold text-xs text-gray-500 uppercase tracking-wider block mb-2">Adicional $2,00</span>
                     <div class="product-item flex items-center justify-between bg-gray-50 p-2 rounded">
                         <span class="text-xs font-semibold text-gray-800">Piña</span>
-                        <div class="flex items-center space-x-1">
-                            <button onclick="updateCart('Extra Piña', 2, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold border border-gray-200">-</button>
-                            <span id="qty-Extra-Pi-a" class="w-4 text-center text-xs font-bold">0</span>
-                            <button onclick="updateCart('Extra Piña', 2, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                        </div>
+                        <button onclick="updateCart('Extra Piña', 2, 1)" class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs active:scale-95">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -302,7 +291,7 @@
         const adic1Data = ["Tomate", "Maíz", "Tocineta", "Pepperoni", "Jamón", "Salchichón", "Polaca", "Cebolla", "Chistorra", "Chorizo", "Aceitunas negras"];
         const adic25Data = ["Anchoas", "Champiñón", "Doble queso", "Borde de queso"];
 
-        // Inicialización y Renderizado
+        // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
             renderPizzas();
             renderCombos();
@@ -310,6 +299,7 @@
             renderAdicionales();
         });
 
+        // Render Pizzas con 1 sola descripción y tallas listadas abajo
         function renderPizzas() {
             const container = document.getElementById('list-pizzas');
             let html = '';
@@ -317,30 +307,24 @@
             pizzasData.forEach(p => {
                 let optionsHTML = p.sizes.map(s => {
                     const itemKey = `${p.name} (${s.s})`;
-                    const cleanId = itemKey.replace(/[^a-zA-Z0-9]/g, '-');
                     return `
-                        <div class="product-item flex items-center justify-between border-t border-gray-100 pt-2 mt-2">
-                            <div class="pr-2 flex-1">
-                                <div class="flex items-center justify-between">
-                                    <span class="font-bold text-gray-800 text-xs">${p.name} <span class="font-medium text-gray-500">(${s.s})</span></span>
-                                    <span class="font-bold text-primary text-sm">$${s.p}</span>
-                                </div>
-                                <p class="text-xs text-gray-500 font-normal leading-snug mt-0.5">${p.desc}</p>
+                        <div class="flex items-center justify-between bg-stone-50 p-2 rounded border border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-semibold text-xs text-gray-800">${s.s}</span>
+                                <span class="font-bold text-primary text-sm">$${s.p}</span>
                             </div>
-                            <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-2">
-                                <button onclick="updateCart('${itemKey}', ${s.p}, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold shadow-xs active:bg-gray-200 text-xs">-</button>
-                                <span id="qty-${cleanId}" class="w-4 text-center font-bold text-xs">0</span>
-                                <button onclick="updateCart('${itemKey}', ${s.p}, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold shadow-xs active:bg-red-700 text-xs">+</button>
-                            </div>
+                            <button onclick="updateCart('${itemKey}', ${s.p}, 1)" class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs active:scale-95">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
                         </div>
                     `;
                 }).join('');
 
                 html += `
-                    <div class="bg-white rounded-lg p-3 shadow-sm border border-gray-200">
+                    <div class="product-item bg-white rounded-lg p-3 shadow-sm border border-gray-200">
                         <div class="font-bold text-gray-900 text-sm mb-0.5">${p.name}</div>
-                        <p class="text-xs text-gray-500 mb-1">${p.desc}</p>
-                        <div class="space-y-1">
+                        <p class="text-xs text-gray-500 font-normal leading-snug mb-2">${p.desc}</p>
+                        <div class="grid grid-cols-1 gap-1.5">
                             ${optionsHTML}
                         </div>
                     </div>
@@ -356,23 +340,18 @@
 
             combosData.forEach(c => {
                 const itemKey = `Combo ${c.id}`;
-                const cleanId = itemKey.replace(/[^a-zA-Z0-9]/g, '-');
                 html += `
                     <div class="product-item bg-white rounded-lg p-3 shadow-sm border border-gray-200 flex items-center justify-between">
                         <div class="pr-3 flex-1">
                             <div class="flex items-center justify-between mb-1">
-                                <span class="font-bold text-gray-900 text-xs uppercase tracking-wide">
-                                    <span class="bg-red-50 text-primary border border-red-200 px-1.5 py-0.5 rounded mr-1">Combo ${c.id}</span>
-                                </span>
+                                <span class="bg-red-50 text-primary border border-red-200 font-bold text-xs px-1.5 py-0.5 rounded">Combo ${c.id}</span>
                                 <span class="font-bold text-primary text-base">$${c.price}</span>
                             </div>
                             <p class="text-xs text-gray-700 font-medium leading-snug">${c.desc}</p>
                         </div>
-                        <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-2">
-                            <button onclick="updateCart('${itemKey}', ${c.price}, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                            <span id="qty-${cleanId}" class="w-4 text-center font-bold text-xs">0</span>
-                            <button onclick="updateCart('${itemKey}', ${c.price}, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                        </div>
+                        <button onclick="updateCart('${itemKey}', ${c.price}, 1)" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-xs active:scale-95 text-sm shrink-0 ml-2">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 `;
             });
@@ -385,18 +364,15 @@
             let html = '';
 
             bebidasData.forEach(b => {
-                const cleanId = b.name.replace(/[^a-zA-Z0-9]/g, '-');
                 html += `
                     <div class="product-item bg-white rounded-lg p-3 shadow-sm border border-gray-200 flex items-center justify-between">
                         <div class="pr-3 flex-1 flex items-center justify-between">
                             <span class="font-bold text-gray-900 text-sm">${b.name}</span>
                             <span class="font-bold text-primary text-base">$${b.price}</span>
                         </div>
-                        <div class="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 shrink-0 ml-3">
-                            <button onclick="updateCart('${b.name}', ${b.price}, -1)" class="w-6 h-6 rounded bg-white text-gray-700 flex items-center justify-center font-bold text-xs">-</button>
-                            <span id="qty-${cleanId}" class="w-4 text-center font-bold text-xs">0</span>
-                            <button onclick="updateCart('${b.name}', ${b.price}, 1)" class="w-6 h-6 rounded bg-primary text-white flex items-center justify-center font-bold text-xs">+</button>
-                        </div>
+                        <button onclick="updateCart('${b.name}', ${b.price}, 1)" class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-xs active:scale-95 text-sm shrink-0 ml-3">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 `;
             });
@@ -411,15 +387,12 @@
             let html1 = '';
             adic1Data.forEach(item => {
                 const itemKey = `Extra ${item}`;
-                const cleanId = itemKey.replace(/[^a-zA-Z0-9]/g, '-');
                 html1 += `
                     <div class="product-item flex items-center justify-between bg-gray-50 p-2 rounded">
                         <span class="text-xs font-semibold text-gray-800">${item}</span>
-                        <div class="flex items-center space-x-1">
-                            <button onclick="updateCart('${itemKey}', 1, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold border border-gray-200">-</button>
-                            <span id="qty-${cleanId}" class="w-3 text-center text-xs font-bold">0</span>
-                            <button onclick="updateCart('${itemKey}', 1, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                        </div>
+                        <button onclick="updateCart('${itemKey}', 1, 1)" class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs active:scale-95">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 `;
             });
@@ -428,22 +401,19 @@
             let html25 = '';
             adic25Data.forEach(item => {
                 const itemKey = `Extra ${item}`;
-                const cleanId = itemKey.replace(/[^a-zA-Z0-9]/g, '-');
                 html25 += `
                     <div class="product-item flex items-center justify-between bg-gray-50 p-2 rounded">
                         <span class="text-xs font-semibold text-gray-800">${item}</span>
-                        <div class="flex items-center space-x-1">
-                            <button onclick="updateCart('${itemKey}', 2.5, -1)" class="w-5 h-5 rounded bg-white text-gray-700 flex items-center justify-center text-xs font-bold border border-gray-200">-</button>
-                            <span id="qty-${cleanId}" class="w-3 text-center text-xs font-bold">0</span>
-                            <button onclick="updateCart('${itemKey}', 2.5, 1)" class="w-5 h-5 rounded bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs">+</button>
-                        </div>
+                        <button onclick="updateCart('${itemKey}', 2.5, 1)" class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shadow-xs active:scale-95">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 `;
             });
             container25.innerHTML = html25;
         }
 
-        // Carrito y Cálculos
+        // Carrito y Totales
         function updateCart(name, price, change) {
             if (!cart[name]) {
                 cart[name] = { price: price, qty: 0 };
@@ -453,12 +423,6 @@
 
             if (cart[name].qty <= 0) {
                 delete cart[name];
-            }
-
-            const cleanId = name.replace(/[^a-zA-Z0-9]/g, '-');
-            const qtyElem = document.getElementById(`qty-${cleanId}`);
-            if (qtyElem) {
-                qtyElem.innerText = cart[name] ? cart[name].qty : 0;
             }
 
             renderTotals();
